@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Hieu\\Source\\Repos\\QuanLyBanHangAPI\\QuanLyBanHangAPI.csproj": {}
+    "/Users/hieuninh/Projects/QuanLyBanHangAPI/QuanLyBanHangAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Hieu\\Source\\Repos\\QuanLyBanHangAPI\\QuanLyBanHangAPI.csproj": {
+    "/Users/hieuninh/Projects/QuanLyBanHangAPI/QuanLyBanHangAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Hieu\\Source\\Repos\\QuanLyBanHangAPI\\QuanLyBanHangAPI.csproj",
+        "projectUniqueName": "/Users/hieuninh/Projects/QuanLyBanHangAPI/QuanLyBanHangAPI.csproj",
         "projectName": "QuanLyBanHangAPI",
-        "projectPath": "C:\\Users\\Hieu\\Source\\Repos\\QuanLyBanHangAPI\\QuanLyBanHangAPI.csproj",
-        "packagesPath": "C:\\Users\\Hieu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Hieu\\Source\\Repos\\QuanLyBanHangAPI\\obj\\",
+        "projectPath": "/Users/hieuninh/Projects/QuanLyBanHangAPI/QuanLyBanHangAPI.csproj",
+        "packagesPath": "/Users/hieuninh/.nuget/packages/",
+        "outputPath": "/Users/hieuninh/Projects/QuanLyBanHangAPI/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Hieu\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/hieuninh/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -68,7 +66,7 @@
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[3.1.10, )"
+              "version": "[5.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
@@ -123,7 +121,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.100/RuntimeIdentifierGraph.json"
         }
       }
     }
