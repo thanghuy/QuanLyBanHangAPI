@@ -55,32 +55,38 @@ namespace QuanLyBanHangAPI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCatalog(long id, [FromForm] Catalog catalog)
+        public async Task<IActionResult> PutCatalog(long id, [FromForm] Catalog catalog,[FromQuery]string? platform)
         {
-            if (id != catalog.Id)
+            if (platform is null)
             {
-                return BadRequest();
+                return Ok(new { status = true, data = "Web API" });
             }
-
-            _context.Entry(catalog).State = EntityState.Modified;
-
-            try
+            else
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CatalogExists(id))
+                if (id != catalog.Id)
                 {
-                    return NotFound();
+                    return BadRequest();
                 }
-                else
-                {
-                    throw;
-                }
-            }
 
-            return NoContent();
+                _context.Entry(catalog).State = EntityState.Modified;
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!CatalogExists(id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return Ok(new { status = true,data="Cập nhật thành công"});
+            }
         }
 
         // POST: api/Catalogs
