@@ -11,48 +11,48 @@ namespace QuanLyBanHangAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RolesController : ControllerBase
+    public class CatalogsController : ControllerBase
     {
         private readonly dbContext _context;
 
-        public RolesController(dbContext context)
+        public CatalogsController(dbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Roles
+        // GET: api/Catalogs
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Role>>> GetRoles()
+        public async Task<ActionResult<IEnumerable<Catalog>>> GetCatalogs()
         {
-            return Ok(new { status = true,data = await _context.Roles.ToListAsync() });
+            return Ok(new { status = true, data = await _context.Catalogs.ToListAsync() });
         }
 
-        // GET: api/Roles/5
+        // GET: api/Catalogs/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Role>> GetRole(long id)
+        public async Task<ActionResult<Catalog>> GetCatalog(long id)
         {
-            var role = await _context.Roles.FindAsync(id);
+            var catalog = await _context.Catalogs.FindAsync(id);
 
-            if (role == null)
+            if (catalog == null)
             {
                 return NotFound();
             }
 
-            return role;
+            return catalog;
         }
 
-        // PUT: api/Roles/5
+        // PUT: api/Catalogs/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRole(long id, Role role)
+        public async Task<IActionResult> PutCatalog(long id, [FromForm] Catalog catalog)
         {
-            if (id != role.Id)
+            if (id != catalog.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(role).State = EntityState.Modified;
+            _context.Entry(catalog).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace QuanLyBanHangAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RoleExists(id))
+                if (!CatalogExists(id))
                 {
                     return NotFound();
                 }
@@ -73,37 +73,37 @@ namespace QuanLyBanHangAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Roles
+        // POST: api/Catalogs
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Role>> PostRole(Role role)
+        public async Task<ActionResult<Catalog>> PostCatalog([FromForm] Catalog catalog)
         {
-            _context.Roles.Add(role);
+            _context.Catalogs.Add(catalog);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetRole", new { id = role.Id }, role);
+            return CreatedAtAction("GetCatalog", new { id = catalog.Id }, catalog);
         }
 
-        // DELETE: api/Roles/5
+        // DELETE: api/Catalogs/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Role>> DeleteRole(long id)
+        public async Task<ActionResult<Catalog>> DeleteCatalog(long id)
         {
-            var role = await _context.Roles.FindAsync(id);
-            if (role == null)
+            var catalog = await _context.Catalogs.FindAsync(id);
+            if (catalog == null)
             {
                 return NotFound();
             }
 
-            _context.Roles.Remove(role);
+            _context.Catalogs.Remove(catalog);
             await _context.SaveChangesAsync();
 
-            return role;
+            return catalog;
         }
 
-        private bool RoleExists(long id)
+        private bool CatalogExists(long id)
         {
-            return _context.Roles.Any(e => e.Id == id);
+            return _context.Catalogs.Any(e => e.Id == id);
         }
     }
 }
