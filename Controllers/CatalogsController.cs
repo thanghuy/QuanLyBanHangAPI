@@ -25,9 +25,16 @@ namespace QuanLyBanHangAPI.Controllers
 
         // GET: api/Catalogs
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Catalog>>> GetCatalogs()
+        public async Task<ActionResult<IEnumerable<Catalog>>> GetCatalogs([FromQuery]string? platform)
         {
-            return Ok(new { status = true, data = await _context.Catalogs.ToListAsync() });
+            if(platform is null)
+            {
+                return Ok(new { status = true, data = "Web API" });
+            }
+            else
+            {
+                return Ok(new { status = true, data = await _context.Catalogs.ToListAsync() });
+            }
         }
 
         // GET: api/Catalogs/5
@@ -107,13 +114,6 @@ namespace QuanLyBanHangAPI.Controllers
         private bool CatalogExists(long id)
         {
             return _context.Catalogs.Any(e => e.Id == id);
-        }
-    
-        [HttpGet]
-        public async Task<IActionResult> GetProducts()
-        {
-            var result = await _catalogService.GetAll();
-            return Ok(new { status = true , data = result });
         }
     }
 }

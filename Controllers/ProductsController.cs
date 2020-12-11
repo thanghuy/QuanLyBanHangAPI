@@ -25,7 +25,7 @@ namespace QuanLyBanHangAPI.Controllers
 
         // GET: api/Products
         [HttpGet]
-        public async Task<IActionResult> GetProducts([FromQuery] Fillter fillterProduct, [FromQuery] string? platform)
+        public async Task<IActionResult> GetProducts([FromQuery] Fillter? fillterProduct, [FromQuery] string? platform)
         {
             if(platform is null)
             {
