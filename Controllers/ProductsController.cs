@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using QuanLyBanHangAPI.DTOs;
 using QuanLyBanHangAPI.Models;
+using QuanLyBanHangAPI.Service.Web.Products;
 
 namespace QuanLyBanHangAPI.Controllers
 {
@@ -14,38 +16,49 @@ namespace QuanLyBanHangAPI.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly dbContext _context;
-
-        public ProductsController(dbContext context)
+        private readonly IProduct _productService;
+        public ProductsController(dbContext context, IProduct product)
         {
             _context = context;
+            this._productService = product;
         }
 
         // GET: api/Products
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts([FromQuery] long? IdCatalog)
+        public async Task<IActionResult> GetProducts([FromQuery] Fillter fillterProduct, [FromQuery] string? platform)
         {
-            if(IdCatalog is null)
+            if(platform is null)
             {
-                return Ok(new { status = true, data = await _context.Products.ToListAsync() });
-            }
-            else
+                    var result = await _productService.GetProduct(fillterProduct);
+                    return Ok(result);
+            }else
             {
-                return Ok(new { status = true, data = await _context.Products.Where(p => p.IdCatalog == IdCatalog).ToListAsync() });
+                    return Ok(new { status = true, data = await _context.Products.ToListAsync() });
             }
         }
 
         // GET: api/Products/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(long id)
+        public async Task<ActionResult<Product>> GetProduct(long id, [FromQuery] string? platform)
         {
-            var product = await _context.Products.FindAsync(id);
-
-            if (product == null)
+            if(platform is null)
             {
-                return NotFound();
+                var product = await _productService.GetId(id);
+                if (product == null)
+                {
+                    return NotFound();
+                }
+                return product;
             }
-
-            return Ok(new { status = true, data = product });
+            else
+            {
+                var product = await _context.Products.FindAsync(id);
+                if (product == null)
+                {
+                    return NotFound();
+                }
+                return Ok(new { status = true, data = product });
+            }
         }
 
         // PUT: api/Products/5
@@ -112,5 +125,9 @@ namespace QuanLyBanHangAPI.Controllers
         {
             return _context.Products.Any(e => e.Id == id);
         }
+       /* private bool ProductExists(long id)
+        {
+            return _context.Products.Any(e => e.Id == id);
+        }*/
     }
 }

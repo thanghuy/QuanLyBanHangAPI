@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuanLyBanHangAPI.Models;
 
+using QuanLyBanHangAPI.Service.Web.Catalog;
 namespace QuanLyBanHangAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -14,10 +15,12 @@ namespace QuanLyBanHangAPI.Controllers
     public class CatalogsController : ControllerBase
     {
         private readonly dbContext _context;
-
-        public CatalogsController(dbContext context)
+        private readonly ICatalog _catalogService;
+        
+        public CatalogsController(dbContext context,ICatalog catalog)
         {
             _context = context;
+            this._catalogService = catalog;
         }
 
         // GET: api/Catalogs
@@ -104,6 +107,13 @@ namespace QuanLyBanHangAPI.Controllers
         private bool CatalogExists(long id)
         {
             return _context.Catalogs.Any(e => e.Id == id);
+        }
+    
+        [HttpGet]
+        public async Task<IActionResult> GetProducts()
+        {
+            var result = await _catalogService.GetAll();
+            return Ok(new { status = true , data = result });
         }
     }
 }

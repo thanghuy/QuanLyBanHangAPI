@@ -42,9 +42,9 @@ namespace QuanLyBanHangAPI.Models
         {
             modelBuilder.Entity<Cart>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("Cart");
+
+                entity.Property(e => e.Amount).HasColumnType("INTEGER(5)");
             });
 
             modelBuilder.Entity<Catalog>(entity =>
@@ -104,6 +104,8 @@ namespace QuanLyBanHangAPI.Models
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.ToTable("Product");
+
+                entity.Property(e => e.Image).HasColumnType("varchar(255)");
             });
 
             modelBuilder.Entity<ProductDetail>(entity =>
