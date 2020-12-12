@@ -1,30 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "/Users/hieuninh/Projects/QuanLyBanHangAPI/QuanLyBanHangAPI.csproj": {}
+    "C:\\Users\\huyth\\OneDrive\\Máy tính\\XDMHPL\\QuanLyBanHangAPI\\QuanLyBanHangAPI.csproj": {}
   },
   "projects": {
-    "/Users/hieuninh/Projects/QuanLyBanHangAPI/QuanLyBanHangAPI.csproj": {
+    "C:\\Users\\huyth\\OneDrive\\Máy tính\\XDMHPL\\QuanLyBanHangAPI\\QuanLyBanHangAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/hieuninh/Projects/QuanLyBanHangAPI/QuanLyBanHangAPI.csproj",
+        "projectUniqueName": "C:\\Users\\huyth\\OneDrive\\Máy tính\\XDMHPL\\QuanLyBanHangAPI\\QuanLyBanHangAPI.csproj",
         "projectName": "QuanLyBanHangAPI",
-        "projectPath": "/Users/hieuninh/Projects/QuanLyBanHangAPI/QuanLyBanHangAPI.csproj",
-        "packagesPath": "/Users/hieuninh/.nuget/packages/",
-        "outputPath": "/Users/hieuninh/Projects/QuanLyBanHangAPI/obj/",
+        "projectPath": "C:\\Users\\huyth\\OneDrive\\Máy tính\\XDMHPL\\QuanLyBanHangAPI\\QuanLyBanHangAPI.csproj",
+        "packagesPath": "C:\\Users\\huyth\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\huyth\\OneDrive\\Máy tính\\XDMHPL\\QuanLyBanHangAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/hieuninh/.config/NuGet/NuGet.Config"
+          "C:\\Users\\huyth\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -36,8 +37,13 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "Microsoft.CodeAnalysis.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.3.2, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[5.0.0, )"
@@ -121,7 +127,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.100/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -12,5 +12,6 @@ namespace QuanLyBanHangAPI.Models
         public long? IdCatalog { get; set; }
         public long? Amount { get; set; }
         public double? Price { get; set; }
+        public string Image { get; set; }
     }
 }
