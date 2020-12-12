@@ -9097,19 +9097,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\huyth\\.nuget\\packages\\": {}
+    "C:\\Users\\Hieu\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\huyth\\OneDrive\\Máy tính\\XDMHPL\\QuanLyBanHangAPI\\QuanLyBanHangAPI.csproj",
+      "projectUniqueName": "C:\\Users\\Hieu\\Source\\Repos\\QuanLyBanHangAPI\\QuanLyBanHangAPI.csproj",
       "projectName": "QuanLyBanHangAPI",
-      "projectPath": "C:\\Users\\huyth\\OneDrive\\Máy tính\\XDMHPL\\QuanLyBanHangAPI\\QuanLyBanHangAPI.csproj",
-      "packagesPath": "C:\\Users\\huyth\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\huyth\\OneDrive\\Máy tính\\XDMHPL\\QuanLyBanHangAPI\\obj\\",
+      "projectPath": "C:\\Users\\Hieu\\Source\\Repos\\QuanLyBanHangAPI\\QuanLyBanHangAPI.csproj",
+      "packagesPath": "C:\\Users\\Hieu\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Hieu\\Source\\Repos\\QuanLyBanHangAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\huyth\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Hieu\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
