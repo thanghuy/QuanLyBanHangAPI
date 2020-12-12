@@ -24,7 +24,7 @@ namespace QuanLyBanHangAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Role>>> GetRoles()
         {
-            return await _context.Roles.ToListAsync();
+            return Ok(new { status = true,data = await _context.Roles.ToListAsync() });
         }
 
         // GET: api/Roles/5

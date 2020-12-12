@@ -15,33 +15,119 @@ namespace QuanLyBanHangAPI.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
+        private readonly dbContext _context;
         private readonly IProduct _productService;
-
-        public ProductsController(IProduct product)
+        public ProductsController(dbContext context, IProduct product)
         {
+            _context = context;
             this._productService = product;
         }
 
         // GET: api/Products
         [HttpGet]
-        public async Task<IActionResult> GetProducts([FromQuery] Fillter fillterProduct)
+        public async Task<IActionResult> GetProducts([FromQuery] Fillter? fillterProduct, [FromQuery] string? platform)
         {
-            var result = await _productService.GetProduct(fillterProduct);
-            return Ok(result);
+            if(platform is null)
+            {
+                    var result = await _productService.GetProduct(fillterProduct);
+                    return Ok(result);
+            }else
+            {
+                    return Ok(new { status = true, data = await _context.Products.ToListAsync() });
+            }
         }
 
         // GET: api/Products/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(long id)
+        public async Task<ActionResult<Product>> GetProduct(long id, [FromQuery] string? platform)
         {
-            var product = await _productService.GetId(id);
+            if(platform is null)
+            {
+                var product = await _productService.GetId(id);
+                if (product == null)
+                {
+                    return NotFound();
+                }
+                return product;
+            }
+            else
+            {
+                var product = await _context.Products.FindAsync(id);
+                if (product == null)
+                {
+                    return NotFound();
+                }
+                return Ok(new { status = true, data = product });
+            }
+        }
 
+        // PUT: api/Products/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutProduct(long id,[FromForm]Product product)
+        {
+            if (id != product.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(product).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ProductExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok(new{status=true});
+        }
+
+        // POST: api/Products
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [HttpPost]
+        public async Task<ActionResult<Product>> PostProduct([FromForm]Product product)
+        {
+            _context.Products.Add(product);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { status=true,data = CreatedAtAction("GetProduct", new { id = product.Id }, product) });
+        }
+
+        // DELETE: api/Products/5
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Product>> DeleteProduct(long id)
+        {
+            var product = await _context.Products.FindAsync(id);
             if (product == null)
             {
                 return NotFound();
             }
 
+            _context.Products.Remove(product);
+            await _context.SaveChangesAsync();
+
             return product;
         }
+
+        private bool ProductExists(long id)
+        {
+            return _context.Products.Any(e => e.Id == id);
+        }
+       /* private bool ProductExists(long id)
+        {
+            return _context.Products.Any(e => e.Id == id);
+        }*/
     }
 }

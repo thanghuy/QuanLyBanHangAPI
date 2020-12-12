@@ -34,7 +34,7 @@ namespace QuanLyBanHangAPI.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlite("DataSource=db.db");
+                optionsBuilder.UseSqlite("Datasource=db.db");
             }
         }
 
@@ -110,20 +110,20 @@ namespace QuanLyBanHangAPI.Models
 
             modelBuilder.Entity<ProductDetail>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.IdProduct);
 
                 entity.ToTable("ProductDetail");
+
+                entity.Property(e => e.IdProduct).ValueGeneratedNever();
             });
 
             modelBuilder.Entity<Storage>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.IdProduct);
 
                 entity.ToTable("Storage");
 
-                entity.Property(e => e.ExportDate).HasColumnType("NUMERIC");
-
-                entity.Property(e => e.ImportDate).HasColumnType("NUMERIC");
+                entity.Property(e => e.IdProduct).ValueGeneratedNever();
             });
 
             OnModelCreatingPartial(modelBuilder);
