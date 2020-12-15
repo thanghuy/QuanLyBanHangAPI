@@ -57,6 +57,8 @@ namespace QuanLyBanHangAPI.Models
             modelBuilder.Entity<Combo>(entity =>
             {
                 entity.ToTable("Combo");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
             });
 
             modelBuilder.Entity<Customer>(entity =>
@@ -96,7 +98,7 @@ namespace QuanLyBanHangAPI.Models
 
             modelBuilder.Entity<InvoiceDetail>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => new { e.IdInvoice, e.IdProduct });
 
                 entity.ToTable("InvoiceDetail");
             });

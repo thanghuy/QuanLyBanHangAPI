@@ -25,7 +25,7 @@ namespace QuanLyBanHangAPI.Controllers
 
         // GET: api/Products
         [HttpGet]
-        public async Task<IActionResult> GetProducts([FromQuery] Fillter? fillterProduct, [FromQuery] string? platform)
+        public async Task<IActionResult> GetProducts([FromQuery] Fillter? fillterProduct, [FromQuery] string? platform, [FromQuery] long? idCatalog)
         {
             if(platform is null)
             {
@@ -33,7 +33,14 @@ namespace QuanLyBanHangAPI.Controllers
                     return Ok(result);
             }else
             {
+                if (idCatalog is null)
+                {
                     return Ok(new { status = true, data = await _context.Products.ToListAsync() });
+                }
+                else
+                {
+                    return Ok(new { status = true, data = await _context.Products.Where(p => p.IdCatalog == idCatalog).ToListAsync() });
+                }
             }
         }
 
