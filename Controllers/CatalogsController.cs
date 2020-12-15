@@ -25,16 +25,9 @@ namespace QuanLyBanHangAPI.Controllers
 
         // GET: api/Catalogs
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Catalog>>> GetCatalogs([FromQuery]string? platform)
+        public async Task<ActionResult<IEnumerable<Catalog>>> GetCatalogs([FromQuery]string platform)
         {
-            if(platform is null)
-            {
-                return Ok(new { status = true, data = "Web API" });
-            }
-            else
-            {
-                return Ok(new { status = true, data = await _context.Catalogs.ToListAsync() });
-            }
+            return Ok(new { status = true, data = await _catalogService.GetAll() });
         }
 
         // GET: api/Catalogs/5
@@ -55,7 +48,7 @@ namespace QuanLyBanHangAPI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCatalog(long id, [FromForm] Catalog catalog,[FromQuery]string? platform)
+        public async Task<IActionResult> PutCatalog(long id, [FromForm] Catalog catalog,[FromQuery]string platform)
         {
             if (platform is null)
             {

@@ -74,28 +74,7 @@ namespace QuanLyBanHangAPI.Controllers
         // POST: api/ProductDetails
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
-        public async Task<ActionResult<ProductDetail>> PostProductDetail([FromForm]ProductDetail productDetail)
-        {
-            _context.ProductDetails.Add(productDetail);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (ProductDetailExists(productDetail.IdProduct))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return Ok(new { status = true, data = productDetail });
-        }
+        
 
         // DELETE: api/ProductDetails/5
         [HttpDelete("{id}")]

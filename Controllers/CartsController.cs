@@ -59,10 +59,10 @@ namespace QuanLyBanHangAPI.Controllers
         }
 
         // DELETE: api/Carts/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Cart>> DeleteCart(long id)
+        [HttpDelete("{id}/{iduser}")]
+        public async Task<ActionResult<Cart>> DeleteCart(long id,long iduser)
         {
-            var result = await _cartService.Delete(id);
+            var result = await _cartService.Delete(id,iduser);
             if (!result)
             {
                 return BadRequest();
