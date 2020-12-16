@@ -21,10 +21,10 @@ namespace QuanLyBanHangAPI.Controllers
         }
 
         // GET: api/Invoices
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Invoice>>> GetInvoices()
+        [HttpGet("all/{idCustomer}")]
+        public async Task<ActionResult<IEnumerable<Invoice>>> GetInvoices(long idCustomer)
         {
-            return await _context.Invoices.ToListAsync();
+            return await _context.Invoices.Where(x => x.IdCustomer == idCustomer).ToListAsync();
         }
 
         // GET: api/Invoices/5

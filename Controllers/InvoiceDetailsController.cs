@@ -31,14 +31,25 @@ namespace QuanLyBanHangAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<InvoiceDetail>> GetInvoiceDetail(long id)
         {
-            var invoiceDetail = await _context.InvoiceDetails.FindAsync(id);
+            var invoiceDetail = await _context.InvoiceDetails.Where(x => x.IdInvoice == id).Join(
+                _context.Products,
+                d => d.IdProduct,
+                p => p.Id,
+                (d, p) => new { d, p }
+                ).Select(cp => new DTOs.Detail
+                {
+                    nameProduct = cp.p.Name,
+                    imageProduct = cp.p.Image,
+                    Amount = cp.d.Amount,
+                    Price = cp.d.Price
+                }).ToListAsync();
 
             if (invoiceDetail == null)
             {
                 return NotFound();
             }
 
-            return invoiceDetail;
+            return Ok( new { status = true, data = invoiceDetail } );
         }
 
         // PUT: api/InvoiceDetails/5
