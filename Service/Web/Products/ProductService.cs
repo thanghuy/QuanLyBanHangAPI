@@ -27,7 +27,7 @@ namespace QuanLyBanHangAPI.Service.Web.Products
             {
                 product = product.Where(p => p.Name.ToLower().Contains(fillter.key));
             }
-            return PaginatedList<Product>.Create(product, fillter.page, 8);
+            return PaginatedList<Product>.Create(product, fillter.page, 12);
         }
 
         public async Task<ActionResult<Product>> GetId(long id)

@@ -7,7 +7,7 @@ namespace QuanLyBanHangAPI.Models
 {
     public partial class ProductDetail
     {
-        public long IdProduct { get; set; }
+        public long? IdProduct { get; set; }
         public string Detail { get; set; }
     }
 }

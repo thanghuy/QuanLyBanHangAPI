@@ -10,5 +10,6 @@ namespace QuanLyBanHangAPI.Models
         public long IdCustomer{ get; set; }
         public long Amount{ get; set; }
         public long IdCart{ get; set; }
+        public double? Price_item{get;set;}
     }
 }

@@ -24,6 +24,7 @@ namespace QuanLyBanHangAPI.Models
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Invoice> Invoices { get; set; }
         public virtual DbSet<InvoiceDetail> InvoiceDetails { get; set; }
+        public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductDetail> ProductDetails { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
@@ -91,16 +92,26 @@ namespace QuanLyBanHangAPI.Models
             {
                 entity.ToTable("Invoice");
 
-                entity.Property(e => e.CreateAt).HasColumnType("NUMERIC");
-
-                entity.Property(e => e.ShipDate).HasColumnType("NUMERIC");
+                entity.Property(e => e.Email).HasColumnType("varchar(255)");
             });
 
             modelBuilder.Entity<InvoiceDetail>(entity =>
             {
-                entity.HasKey(e => new { e.IdInvoice, e.IdProduct });
+                entity.HasKey(e => e.Idd);
 
                 entity.ToTable("InvoiceDetail");
+
+                entity.Property(e => e.Idd).HasColumnName("IDD");
+               // entity.Property(e => e.Idd).ValueGeneratedNever();
+            });
+
+            modelBuilder.Entity<OrderDetail>(entity =>
+            {
+                entity.HasKey(e => e.Idd);
+
+                entity.ToTable("OrderDetail");
+
+                entity.Property(e => e.Idd).HasColumnName("IDD");
             });
 
             modelBuilder.Entity<Product>(entity =>
@@ -112,20 +123,20 @@ namespace QuanLyBanHangAPI.Models
 
             modelBuilder.Entity<ProductDetail>(entity =>
             {
-                entity.HasKey(e => e.IdProduct);
+                entity.HasNoKey();
 
                 entity.ToTable("ProductDetail");
-
-                entity.Property(e => e.IdProduct).ValueGeneratedNever();
             });
 
             modelBuilder.Entity<Storage>(entity =>
             {
-                entity.HasKey(e => e.IdProduct);
+                entity.HasNoKey();
 
                 entity.ToTable("Storage");
 
-                entity.Property(e => e.IdProduct).ValueGeneratedNever();
+                entity.Property(e => e.ExportDate).HasColumnType("NUMERIC");
+
+                entity.Property(e => e.ImportDate).HasColumnType("NUMERIC");
             });
 
             OnModelCreatingPartial(modelBuilder);

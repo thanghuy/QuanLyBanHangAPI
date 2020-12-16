@@ -25,7 +25,7 @@ namespace QuanLyBanHangAPI.Controllers
 
         // GET: api/Products
         [HttpGet]
-        public async Task<IActionResult> GetProducts([FromQuery] Fillter? fillterProduct, [FromQuery] string? platform, [FromQuery] long? idCatalog)
+        public async Task<IActionResult> GetProducts([FromQuery] Fillter fillterProduct, [FromQuery] string? platform)
         {
             if(platform is null)
             {
@@ -46,7 +46,7 @@ namespace QuanLyBanHangAPI.Controllers
 
         // GET: api/Products/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(long id, [FromQuery] string? platform)
+        public async Task<ActionResult<Product>> GetProduct(long id, [FromQuery] string platform)
         {
             if(platform is null)
             {

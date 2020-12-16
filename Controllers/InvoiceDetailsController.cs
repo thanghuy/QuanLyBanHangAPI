@@ -31,14 +31,25 @@ namespace QuanLyBanHangAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<InvoiceDetail>> GetInvoiceDetail(long id)
         {
-            var invoiceDetail = await _context.InvoiceDetails.FindAsync(id);
+            var invoiceDetail = await _context.InvoiceDetails.Where(x => x.IdInvoice == id).Join(
+                _context.Products,
+                d => d.IdProduct,
+                p => p.Id,
+                (d, p) => new { d, p }
+                ).Select(cp => new DTOs.Detail
+                {
+                    nameProduct = cp.p.Name,
+                    imageProduct = cp.p.Image,
+                    Amount = cp.d.Amount,
+                    Price = cp.d.Price
+                }).ToListAsync();
 
             if (invoiceDetail == null)
             {
                 return NotFound();
             }
 
-            return invoiceDetail;
+            return Ok( new { status = true, data = invoiceDetail } );
         }
 
         // PUT: api/InvoiceDetails/5
@@ -47,7 +58,7 @@ namespace QuanLyBanHangAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutInvoiceDetail(long id, InvoiceDetail invoiceDetail)
         {
-            if (id != invoiceDetail.IdInvoice)
+            if (id != invoiceDetail.Idd)
             {
                 return BadRequest();
             }
@@ -86,7 +97,7 @@ namespace QuanLyBanHangAPI.Controllers
             }
             catch (DbUpdateException)
             {
-                if (InvoiceDetailExists(invoiceDetail.IdInvoice))
+                if (InvoiceDetailExists(invoiceDetail.Idd))
                 {
                     return Conflict();
                 }
@@ -96,7 +107,7 @@ namespace QuanLyBanHangAPI.Controllers
                 }
             }
 
-            return CreatedAtAction("GetInvoiceDetail", new { id = invoiceDetail.IdInvoice }, invoiceDetail);
+            return CreatedAtAction("GetInvoiceDetail", new { id = invoiceDetail.Idd }, invoiceDetail);
         }
 
         // DELETE: api/InvoiceDetails/5
@@ -117,7 +128,7 @@ namespace QuanLyBanHangAPI.Controllers
 
         private bool InvoiceDetailExists(long id)
         {
-            return _context.InvoiceDetails.Any(e => e.IdInvoice == id);
+            return _context.InvoiceDetails.Any(e => e.Idd == id);
         }
     }
 }

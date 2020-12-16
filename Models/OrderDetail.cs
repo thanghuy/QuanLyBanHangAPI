@@ -5,11 +5,12 @@ using System.Collections.Generic;
 
 namespace QuanLyBanHangAPI.Models
 {
-    public partial class Storage
+    public partial class OrderDetail
     {
+        public long Idd { get; set; }
+        public long? IdOrder { get; set; }
         public long? IdProduct { get; set; }
         public long? Amount { get; set; }
-        public byte[] ImportDate { get; set; }
-        public byte[] ExportDate { get; set; }
+        public double? Price { get; set; }
     }
 }

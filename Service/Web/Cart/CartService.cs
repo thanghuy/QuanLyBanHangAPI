@@ -13,7 +13,7 @@ namespace QuanLyBanHangAPI.Service.Web.Cart
         {
         }
 
-        public async Task<List<CartItem>> GetCart(long idCustomer)
+        public async Task<Object> GetCart(long idCustomer)
         {
 
             var result = _dbContext.Carts.Where(x => x.IdCustomer == idCustomer).Join(
@@ -30,7 +30,8 @@ namespace QuanLyBanHangAPI.Service.Web.Cart
                     Id = cp.p.Id,
                     Image = cp.p.Image,
                     Price = cp.p.Price * cp.ca.Amount,
-                    IdCatalog = cp.p.IdCatalog
+                    IdCatalog = cp.p.IdCatalog,
+                    Price_item = cp.p.Price
                 }).ToList();
             /*return carts;
             var result = _dbContext.Carts.Where(c => c.IdCustomer == idCustomer).Select(c => new Models.CartItem()
@@ -44,7 +45,7 @@ namespace QuanLyBanHangAPI.Service.Web.Cart
         {
 
             var cart_item = _dbContext.Carts.AsEnumerable<Models.Cart>();
-            var _cart = cart_item.Where(x => x.IdProduct == cart.IdProduct).FirstOrDefault();
+            var _cart = cart_item.Where(x => x.IdProduct == cart.IdProduct && x.IdCustomer == cart.IdCustomer).FirstOrDefault();
             if(_cart == null)
             {
                 _dbContext.Add(cart);
@@ -58,9 +59,9 @@ namespace QuanLyBanHangAPI.Service.Web.Cart
             //return true;
         }
 
-        public async Task<bool> Delete(long idCart)
+        public async Task<bool> Delete(long idCart,long iduser)
         {
-            var cart_item = await _dbContext.Carts.FindAsync(idCart);
+            var cart_item = _dbContext.Carts.Where(x => x.Id == idCart && x.IdCustomer == iduser).FirstOrDefault();
             _dbContext.Carts.Remove(cart_item);
             return await _dbContext.SaveChangesAsync() != 0;
         }
@@ -69,7 +70,8 @@ namespace QuanLyBanHangAPI.Service.Web.Cart
 
         public async Task<bool> Update(long idCart, Models.Cart cart)
         {
-            var cart_item = _dbContext.Carts.Where(x => x.Id == idCart).FirstOrDefault();
+            
+            var cart_item = _dbContext.Carts.Where(x => x.Id == idCart && x.IdCustomer == cart.IdCustomer).FirstOrDefault();
             cart_item.Amount = cart.Amount;
             return await _dbContext.SaveChangesAsync() != 0;
         }

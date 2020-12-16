@@ -9,9 +9,9 @@ namespace QuanLyBanHangAPI.Service.Web.Cart
 {
     public interface ICart
     {
-        Task<List<Models.CartItem>> GetCart(long idCustomer);
+        Task<Object> GetCart(long idCustomer);
         public Task<bool> AddToCart(Models.Cart cart);
-        Task<bool> Delete(long idCart);
+        Task<bool> Delete(long idCart,long iduser);
         Task<bool> Update(long idCart, Models.Cart cart);
     }
 }
